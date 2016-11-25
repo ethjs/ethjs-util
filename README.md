@@ -32,7 +32,7 @@
 
 <br />
 
-A simple set of Ethereum JS utilities such as `toBuffer`.
+A simple set of Ethereum JS utilities such as `toBuffer` and `isHexPrefixed`.
 
 ## Install
 
@@ -43,7 +43,11 @@ npm install --save ethjs-util
 ## Usage
 
 ```js
-const format = require('ethjs-util');
+const util = require('ethjs-util');
+
+const value = util.intToBuffer(38272);
+
+// returns <Buffer ...>
 ```
 
 ## About
