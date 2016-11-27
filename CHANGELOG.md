@@ -1,3 +1,7 @@
+# 0.0.3 -- added `some` property to arrayContainsArray
+
+1. added `some` property to arrayContainsArray, allows some array in another
+
 # 0.0.2 -- added isHexString and getKeys
 
 1. added `isHexString` method

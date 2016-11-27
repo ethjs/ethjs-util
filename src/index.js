@@ -117,8 +117,8 @@ function toBuffer(value) {
  *
  * @returns {boolean}
  */
-function arrayContainsArray(superset, subset) {
-  return subset.every((value) => (superset.indexOf(value) >= 0));
+function arrayContainsArray(superset, subset, some) {
+  return subset[Boolean(some) && 'some' || 'every']((value) => (superset.indexOf(value) >= 0));
 }
 
 /**
