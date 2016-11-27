@@ -1,3 +1,8 @@
+# 0.0.2 -- added isHexString and getKeys
+
+1. added `isHexString` method
+2. added `getKeys` method util
+
 # 0.0.1 -- ethjs-util
 
 1. Basic testing

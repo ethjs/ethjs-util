@@ -14,6 +14,8 @@ describe('check all exports', () => {
     'fromAscii',
     'fromUtf8',
     'toAscii',
+    'getKeys',
+    'isHexString',
     'toUtf8'];
 
     Object.keys(util).forEach((utilKey) => {

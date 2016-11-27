@@ -214,6 +214,33 @@ function fromAscii(stringValue) {
   return `0x${hex}`;
 }
 
+// getKeys([{a: 1, b: 2}, {a: 3, b: 4}], 'a') => [1, 3]
+function getKeys(params, key, allowEmpty) {
+  if (!Array.isArray(params)) { throw new Error('invalid params'); }
+
+  var result = []; // eslint-disable-line
+
+  for (var i = 0; i < params.length; i++) { // eslint-disable-line
+    var value = params[i][key]; // eslint-disable-line
+    if (allowEmpty && !value) {
+      value = '';
+    } else if (typeof(value) !== 'string') {
+      throw new Error('invalid abi');
+    }
+    result.push(value);
+  }
+
+  return result;
+}
+
+function isHexString(value, length) {
+  if (typeof(value) !== 'string' || !value.match(/^0x[0-9A-Fa-f]*$/)) {
+    return false;
+  }
+  if (length && value.length !== 2 + 2 * length) { return false; }
+  return true;
+}
+
 module.exports = {
   arrayContainsArray,
   toBuffer,
@@ -227,4 +254,6 @@ module.exports = {
   fromUtf8,
   toAscii,
   toUtf8,
+  getKeys,
+  isHexString,
 };
