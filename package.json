@@ -1,6 +1,6 @@
 {
   "name": "ethjs-util",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A simple set of Ethereum JS utilties.",
   "main": "./src/index.js",
   "scripts": {
@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/silentcicero/ethjs-format.git"
+    "url": "git+ssh://git@github.com/ethjs/ethjs-format.git"
   },
   "keywords": [
     "ethereum",
@@ -36,9 +36,9 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/silentcicero/ethjs-util/issues"
+    "url": "https://github.com/ethjs/ethjs-util/issues"
   },
-  "homepage": "https://github.com/silentcicero/ethjs-util#readme",
+  "homepage": "https://github.com/ethjs/ethjs-util#readme",
   "devDependencies": {
     "chai": "^3.5.0",
     "mocha": "^3.1.2",
@@ -56,7 +56,6 @@
   },
   "dependencies": {
     "assert": "1.4.1",
-    "ethjs-filter": "0.0.1",
     "utf8": "^2.1.2"
   },
   "babel": {

@@ -1,3 +1,7 @@
+# 0.0.4 -- remove unused deps
+
+1. Removed one unused dep
+
 # 0.0.3 -- added `some` property to arrayContainsArray
 
 1. added `some` property to arrayContainsArray, allows some array in another
