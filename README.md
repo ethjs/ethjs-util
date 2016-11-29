@@ -62,15 +62,14 @@ A simple set of Ethereum JS utilties, mainly for frontend dApps.
 ## Available Methods
 
 ```
-arrayContainsArray
-getBinarySize
-toBuffer
-intToBuffer
-getBinarySize
-isHexPrefixed
-stripHexPrefix
-padToEven
-intToHex
+arrayContainsArray   <Function (Array, Array) : (Boolean)>
+getBinarySize        <Function (String) : (Number)>
+toBuffer             <Function (String) : (Buffer)>
+intToBuffer          <Function (Number) : (Buffer)>
+isHexPrefixed        <Function (String) : (Boolean)>
+stripHexPrefix       <Function (String) : (String)>
+padToEven            <Function (String) : (String)>
+intToHex             <Function (Number) : (String)>
 ```
 
 ## Contributing
