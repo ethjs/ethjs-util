@@ -324,4 +324,104 @@ describe('check all exports', () => {
       assert.equal(typeof error, 'object');
     }
   });
+
+  const fromAsciiTests = [
+    { value: 'myString', expected: '0x6d79537472696e67' },
+    { value: 'myString\x00', expected: '0x6d79537472696e6700' },
+    { value: '\u0003\u0000\u0000\u00005èÆÕL]\u0012|Î¾\u001a7«\u00052\u0011(ÐY\n<\u0010\u0000\u0000\u0000\u0000\u0000\u0000e!ßd/ñõì\f:z¦Î¦±ç·÷Í¢Ëß\u00076*\bñùC1ÉUÀé2\u001aÓB',
+      expected: '0x0300000035e8c6d54c5d127c9dcebe9e1a37ab9b05321128d097590a3c100000000000006521df642ff1f5ec0c3a7aa6cea6b1e7b7f7cda2cbdf07362a85088e97f19ef94331c955c0e9321ad386428c' },
+  ];
+
+  describe('fromAscii', () => {
+    fromAsciiTests.forEach((test) => {
+      it(`should turn ${test.value} to ${test.expected} `, () => {
+        assert.strictEqual(util.fromAscii(test.value), test.expected);
+      });
+    });
+  });
+
+  const fromUtf8Tests = [
+    { value: 'myString', expected: '0x6d79537472696e67' },
+    { value: 'myString\x00', expected: '0x6d79537472696e67' },
+    { value: 'expected value\u0000\u0000\u0000', expected: '0x65787065637465642076616c7565' },
+  ];
+
+  describe('fromUtf8', () => {
+    fromUtf8Tests.forEach((test) => {
+      it(`should turn ${test.value} to ${test.expected} `, () => {
+        assert.strictEqual(util.fromUtf8(test.value), test.expected);
+      });
+    });
+  });
+
+  const toUtf8Tests = [
+      { value: '0x6d79537472696e67', expected: 'myString' },
+      { value: '0x6d79537472696e6700', expected: 'myString' },
+      { value: '0x65787065637465642076616c7565000000000000000000000000000000000000', expected: 'expected value' },
+  ];
+
+  describe('toUtf8', () => {
+    toUtf8Tests.forEach((test) => {
+      it(`should turn ${test.value} to ${test.expected} `, () => {
+        assert.strictEqual(util.toUtf8(test.value), test.expected);
+      });
+    });
+  });
+
+  const toAsciiTests = [
+    { value: '0x6d79537472696e67', expected: 'myString' },
+    { value: '0x6d79537472696e6700', expected: 'myString\u0000' },
+    { value: '0x0300000035e8c6d54c5d127c9dcebe9e1a37ab9b05321128d097590a3c100000000000006521df642ff1f5ec0c3a7aa6cea6b1e7b7f7cda2cbdf07362a85088e97f19ef94331c955c0e9321ad386428c',
+      expected: '\u0003\u0000\u0000\u00005èÆÕL]\u0012|Î¾\u001a7«\u00052\u0011(ÐY\n<\u0010\u0000\u0000\u0000\u0000\u0000\u0000e!ßd/ñõì\f:z¦Î¦±ç·÷Í¢Ëß\u00076*\bñùC1ÉUÀé2\u001aÓB' },
+  ];
+
+  describe('toAsciiTests', () => {
+    toAsciiTests.forEach((test) => {
+      it(`should turn ${test.value} to ${test.expected} `, () => {
+        assert.strictEqual(util.toAscii(test.value), test.expected);
+      });
+    });
+  });
+
+  describe('intToHex', () => {
+    it('should convert a int to hex', () => {
+      const i = 6003400;
+      const hex = util.intToHex(i);
+      assert.equal(hex, '0x5b9ac8');
+    });
+  });
+
+  describe('intToBuffer', () => {
+    it('should convert a int to a buffer', () => {
+      const i = 6003400;
+      const buf = util.intToBuffer(i);
+      assert.equal(buf.toString('hex'), '5b9ac8');
+    });
+  });
+
+
+  describe('toBuffer', () => {
+    it('should work', () => {
+      // Buffer
+      assert.deepEqual(util.toBuffer(Buffer.allocUnsafe(0)), Buffer.allocUnsafe(0));
+      // Array
+      assert.deepEqual(util.toBuffer([]), Buffer.allocUnsafe(0));
+      // String
+      assert.deepEqual(util.toBuffer('11'), Buffer.from([49, 49]));
+      assert.deepEqual(util.toBuffer('0x11'), Buffer.from([17]));
+      assert.deepEqual(util.toBuffer('1234').toString('hex'), '31323334');
+      assert.deepEqual(util.toBuffer('0x1234').toString('hex'), '1234');
+      // Number
+      assert.deepEqual(util.toBuffer(1), Buffer.from([1]));
+      // null
+      assert.deepEqual(util.toBuffer(null), Buffer.allocUnsafe(0));
+      // undefined
+      assert.deepEqual(util.toBuffer(), Buffer.allocUnsafe(0));
+    });
+    it('should fail', () => {
+      assert.throws(() => {
+        util.toBuffer({ test: 1 });
+      });
+    });
+  });
 });
