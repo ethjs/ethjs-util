@@ -9,6 +9,10 @@ const utf8 = require('utf8');
  * @return {Boolean}
  */
 function isHexPrefixed(str) {
+  if (typeof str !== 'string') {
+    throw new Error(`value must be string, is currently ${typeof str}, while checking isHexPrefixed.`);
+  }
+
   return str.slice(0, 2) === '0x';
 }
 
@@ -27,11 +31,15 @@ function stripHexPrefix(str) {
 
 /**
  * Pads a `String` to have an even length
- * @param {String} a
- * @return {String}
+ * @param {String} value
+ * @return {String} output
  */
 function padToEven(value) {
   var a = value; // eslint-disable-line
+
+  if (typeof a !== 'string') {
+    throw new Error(`value must be string, is currently ${typeof a}, while padToEven.`);
+  }
 
   if (a.length % 2) {
     a = `0${a}`;
@@ -74,6 +82,10 @@ function intToBuffer(i) {
  * @return {Number}
  */
 function getBinarySize(str) {
+  if (typeof str !== 'string') {
+    throw new Error(`method getBinarySize requires input 'str' to be type String, got '${typeof str}'.`);
+  }
+
   return Buffer.byteLength(str, 'utf8');
 }
 
@@ -118,6 +130,9 @@ function toBuffer(value) {
  * @returns {boolean}
  */
 function arrayContainsArray(superset, subset, some) {
+  if (Array.isArray(superset) !== true) { throw new Error(`method arrayContainsArray requires input 'superset' to be an array got type '${typeof superset}'`); }
+  if (Array.isArray(subset) !== true) { throw new Error(`method arrayContainsArray requires input 'subset' to be an array got type '${typeof subset}'`); }
+
   return subset[Boolean(some) && 'some' || 'every']((value) => (superset.indexOf(value) >= 0));
 }
 
@@ -214,9 +229,18 @@ function fromAscii(stringValue) {
   return `0x${hex}`;
 }
 
-// getKeys([{a: 1, b: 2}, {a: 3, b: 4}], 'a') => [1, 3]
+/**
+ * getKeys([{a: 1, b: 2}, {a: 3, b: 4}], 'a') => [1, 3]
+ *
+ * @method getKeys get specific key from inner object array of objects
+ * @param {String} params
+ * @param {String} key
+ * @param {Boolean} allowEmpty
+ * @returns {Array} output just a simple array of output keys
+ */
 function getKeys(params, key, allowEmpty) {
-  if (!Array.isArray(params)) { throw new Error('invalid params'); }
+  if (!Array.isArray(params)) { throw new Error(`method getKeys expecting type Array as 'params' input, got '${typeof params}'`); }
+  if (typeof key !== 'string') { throw new Error(`method getKeys expecting type String for input 'key' got '${typeof key}'.`); }
 
   var result = []; // eslint-disable-line
 
