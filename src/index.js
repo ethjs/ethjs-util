@@ -112,6 +112,9 @@ function toBuffer(value) {
     } else if (v.toArray) {
       // converts a BN to a Buffer
       v = Buffer.from(v.toArray());
+    } else if (v.dividedToIntegerBy) {
+      // converts a BigNumber to a Buffer
+      v = Buffer.from(padToEven(v.toString(16)), 'hex');
     } else {
       throw new Error('invalid type');
     }

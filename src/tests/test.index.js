@@ -1,5 +1,7 @@
 const util = require('../index.js');
 const assert = require('chai').assert;
+const BN = require('bn.js');
+const BigNumber = require('bignumber.js');
 
 describe('check all exports', () => {
   it('should have all exports available', () => {
@@ -175,6 +177,22 @@ describe('check all exports', () => {
   it('method getKeys should throw as expected array for params got number', () => {
     try {
       util.getKeys(2482822);
+    } catch (error) {
+      assert.equal(typeof error, 'object');
+    }
+  });
+
+  it('method invalid getKeys with allow empty and no defined value', () => {
+    try {
+      util.getKeys([{ type: undefined }], 'type', true);
+    } catch (error) {
+      assert.equal(typeof error, 'object');
+    }
+  });
+
+  it('method valid getKeys with allow empty and false', () => {
+    try {
+      util.getKeys([{ type: true }], 'type', true);
     } catch (error) {
       assert.equal(typeof error, 'object');
     }
@@ -411,6 +429,8 @@ describe('check all exports', () => {
       assert.deepEqual(util.toBuffer('0x11'), Buffer.from([17]));
       assert.deepEqual(util.toBuffer('1234').toString('hex'), '31323334');
       assert.deepEqual(util.toBuffer('0x1234').toString('hex'), '1234');
+      assert.deepEqual(util.toBuffer(new BN(34)).toString('hex'), '22');
+      assert.deepEqual(util.toBuffer(new BigNumber(34)).toString('hex'), '22');
       // Number
       assert.deepEqual(util.toBuffer(1), Buffer.from([1]));
       // null
