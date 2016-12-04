@@ -1,5 +1,4 @@
  /* eslint-disable */ 
- /* eslint-disable */ 
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();

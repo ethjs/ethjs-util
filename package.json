@@ -1,6 +1,6 @@
 {
   "name": "ethjs-util",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "A simple set of Ethereum JS utilties.",
   "main": "./lib/index.js",
   "scripts": {
@@ -11,8 +11,8 @@
     "prebuild": "npm run build:clean && npm run test",
     "build:clean": "npm run test:clean && rimraf ./dist",
     "build:commonjs": "cross-env BABEL_ENV=commonjs babel src --out-dir lib --copy-files",
-    "build:umd": "cross-env BABEL_ENV=commonjs NODE_ENV=development webpack --config ./internals/webpack/webpack.config.js ./lib/index.js ./dist/ethjs-util.js",
-    "build:umd:min": "cross-env BABEL_ENV=commonjs NODE_ENV=production webpack --config ./internals/webpack/webpack.config.js ./lib/index.js ./dist/ethjs-util.min.js",
+    "build:umd": "cross-env BABEL_ENV=commonjs NODE_ENV=development webpack --config ./internals/webpack/webpack.config.js ./lib/index.js --progress",
+    "build:umd:min": "cross-env BABEL_ENV=commonjs NODE_ENV=production webpack --config ./internals/webpack/webpack.config.js ./lib/index.js --progress",
     "build": "npm run build:commonjs && npm run test:lib && npm run build:umd && npm run build:umd:min",
     "lint": "npm run lint:js",
     "lint:eslint": "eslint --ignore-path .gitignore --ignore-pattern **/**.min.js",
@@ -116,8 +116,8 @@
     "bignumber.js": "3.0.1",
     "bn.js": "4.11.6",
     "chai": "3.5.0",
-    "coveralls": "2.11.9",
     "eslint": "2.10.1",
+    "coveralls": "2.11.9",
     "eslint-config-airbnb": "9.0.1",
     "eslint-import-resolver-webpack": "0.2.4",
     "eslint-plugin-import": "1.8.0",
