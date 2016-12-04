@@ -1,3 +1,7 @@
+# 0.0.5 -- more config
+
+1. Module configuration for es5, webpack and dist builds
+
 # 0.0.4 -- remove unused deps
 
 1. Removed one unused dep

@@ -1,4 +1,3 @@
-const assert = require('assert');
 const utf8 = require('utf8');
 
 // methods taken from ethereumjs-util
@@ -54,9 +53,6 @@ function padToEven(value) {
  * @return {String}
  */
 function intToHex(i) {
-  assert(i % 1 === 0, 'number is not a integer');
-  assert(i >= 0, 'number must be positive');
-
   var hex = i.toString(16); // eslint-disable-line
   if (hex.length % 2) {
     hex = `0${hex}`;
