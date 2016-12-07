@@ -1,6 +1,6 @@
 {
   "name": "ethjs-util",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A simple set of Ethereum JS utilties.",
   "main": "lib/index.js",
   "browser": "dist/ethjs-util.js",
