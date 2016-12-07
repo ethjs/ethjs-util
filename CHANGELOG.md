@@ -1,3 +1,9 @@
+# 0.1.1 -- less dependencies
+
+1. Less dependencies, same functionality
+2. More tests
+3. More docs
+
 # 0.0.5 -- more config
 
 1. Module configuration for es5, webpack and dist builds

@@ -31,6 +31,16 @@ padToEven            <Function (String) : (String)>
 intToHex             <Function (Number) : (String)>
 ```
 
+## Why BN.js?
+
+`ethjs` has made a policy of using `BN.js` across all of its repositories. Here are some of the reasons why:
+
+  1. lighter than alternatives (BigNumber.js)
+  2. faster than most alternatives, see [benchmarks](https://github.com/indutny/bn.js/issues/89)
+  3. used by the Ethereum foundation across all [`ethereumjs`](https://github.com/ethereumjs) repositories
+  4. is already used by a critical JS dependency of many ethereum packages, see package [`elliptic`](https://github.com/indutny/elliptic)
+  5. purposefully **does not support decimals or floats numbers** (for greater precision), remember, the Ethereum blockchain cannot and will not support float values or decimal numbers.
+
 ## Browser Builds
 
 `ethjs` provides production distributions for all of its modules that are ready for use in the browser right away. Simply include either `dist/ethjs-util.js` or `dist/ethjs-util.min.js` directly into an HTML file to start using this module. Note, an `ethUtil` object is made available globally.
@@ -46,6 +56,26 @@ Note, even though `ethjs` should have transformed and polyfilled most of the req
 
 Use a polyfill service such as `Polyfill.io` to ensure complete cross-browser support:
 https://polyfill.io/
+
+## Latest Webpack Figures
+
+Hash: 28b387e39e1016183a78                                                         
+Version: webpack 2.1.0-beta.15
+Time: 734ms
+            Asset     Size  Chunks             Chunk Names
+    ethjs-util.js  65.1 kB       0  [emitted]  main
+ethjs-util.js.map  79.3 kB       0  [emitted]  main
+    + 8 hidden modules
+
+> ethjs-util@0.1.1 build:umd:min /home/nick/github/ethjs-util
+> cross-env BABEL_ENV=commonjs NODE_ENV=production webpack --config ./internals/webpack/webpack.config.js ./lib/index.js --progress
+
+Hash: 4d26e1d501227158f8ab                                                         
+Version: webpack 2.1.0-beta.15
+Time: 1523ms
+            Asset     Size  Chunks             Chunk Names
+ethjs-util.min.js  25.6 kB       0  [emitted]  main
+    + 8 hidden modules
 
 ## Other Awesome Modules, Tools and Frameworks
 

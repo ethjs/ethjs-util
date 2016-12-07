@@ -25,60 +25,6 @@ describe('check all exports', () => {
     });
   });
 
-  it('should isHexPrefixed check if hex is prefixed', () => {
-    assert.equal(util.isHexPrefixed('0xsdffsd'), true);
-    assert.equal(util.isHexPrefixed('0x'), true);
-    assert.equal(util.isHexPrefixed('0x3982349284'), true);
-    assert.equal(util.isHexPrefixed('0x824723894jshdksjdhks'), true);
-  });
-
-  it('should isHexPrefixed check if hex is prefixed not prefixed', () => {
-    assert.equal(util.isHexPrefixed('sdffsd'), false);
-    assert.equal(util.isHexPrefixed(''), false);
-    assert.equal(util.isHexPrefixed('3982349284'), false);
-    assert.equal(util.isHexPrefixed('824723894jshdksjdhks'), false);
-  });
-
-  it('should isHexPrefixed throw as expected string got buffer', () => {
-    try {
-      util.isHexPrefixed(new Buffer());
-    } catch (error) {
-      assert.equal(typeof error, 'object');
-    }
-  });
-
-  it('should isHexPrefixed throw as expected string got empty object', () => {
-    try {
-      util.isHexPrefixed({});
-    } catch (error) {
-      assert.equal(typeof error, 'object');
-    }
-  });
-
-  it('should isHexPrefixed throw as expected string got number', () => {
-    try {
-      util.isHexPrefixed(823947243994);
-    } catch (error) {
-      assert.equal(typeof error, 'object');
-    }
-  });
-
-  it('should isHexPrefixed throw as expected string got undefined', () => {
-    try {
-      util.isHexPrefixed(undefined);
-    } catch (error) {
-      assert.equal(typeof error, 'object');
-    }
-  });
-
-  it('should isHexPrefixed throw as expected string got null', () => {
-    try {
-      util.isHexPrefixed(null);
-    } catch (error) {
-      assert.equal(typeof error, 'object');
-    }
-  });
-
   it('should stripHexPrefix strip prefix of valid strings', () => {
     assert.equal(util.stripHexPrefix('0xkdsfksfdkj'), 'kdsfksfdkj');
     assert.equal(util.stripHexPrefix('0xksfdkj'), 'ksfdkj');

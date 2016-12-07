@@ -1,32 +1,5 @@
-const utf8 = require('utf8');
-
-// methods taken from ethereumjs-util
-
-/**
- * Returns a `Boolean` on whether or not the a `String` starts with '0x'
- * @param {String} str
- * @return {Boolean}
- */
-function isHexPrefixed(str) {
-  if (typeof str !== 'string') {
-    throw new Error(`value must be string, is currently ${typeof str}, while checking isHexPrefixed.`);
-  }
-
-  return str.slice(0, 2) === '0x';
-}
-
-/**
- * Removes '0x' from a given `String`
- * @param {String} str
- * @return {String}
- */
-function stripHexPrefix(str) {
-  if (typeof str !== 'string') {
-    return str;
-  }
-
-  return isHexPrefixed(str) ? str.slice(2) : str;
-}
+const isHexPrefixed = require('is-hex-prefixed');
+const stripHexPrefix = require('strip-hex-prefix');
 
 /**
  * Pads a `String` to have an even length
@@ -143,22 +116,9 @@ function arrayContainsArray(superset, subset, some) {
  * @returns {String} ascii string representation of hex value
  */
 function toUtf8(hex) {
-  var str = ''; // eslint-disable-line
-  var i = 0, l = hex.length; // eslint-disable-line
-  if (hex.substring(0, 2) === '0x') {
-    i = 2;
-  }
-  for (; i < l; i += 2) {
-    const code = parseInt(hex.substr(i, 2), 16);
+  const bufferValue = new Buffer(padToEven(stripHexPrefix(hex).replace(/^0+|0+$/g, '')), 'hex');
 
-    if (code === 0) {
-      break;
-    }
-
-    str += String.fromCharCode(code);
-  }
-
-  return utf8.decode(str);
+  return bufferValue.toString('utf8');
 }
 
 /**
@@ -169,7 +129,6 @@ function toUtf8(hex) {
  * @returns {String} ascii string representation of hex value
  */
 function toAscii(hex) {
-// Find termination
   var str = ''; // eslint-disable-line
   var i = 0, l = hex.length; // eslint-disable-line
 
@@ -194,19 +153,9 @@ function toAscii(hex) {
  * @returns {String} hex representation of input string
  */
 function fromUtf8(stringValue) {
-  var hex = ''; // eslint-disable-line
-  const str = utf8.encode(stringValue);
+  const str = new Buffer(stringValue, 'utf8');
 
-  for(var i = 0; i < str.length; i++) { // eslint-disable-line
-    const code = str.charCodeAt(i);
-    if (code === 0) {
-      break;
-    }
-    const n = code.toString(16);
-    hex += n.length < 2 ? `0${n}` : n;
-  }
-
-  return `0x${hex}`;
+  return `0x${padToEven(str.toString('hex')).replace(/^0+|0+$/g, '')}`;
 }
 
 /**
