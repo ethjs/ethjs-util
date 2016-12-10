@@ -1,9 +1,8 @@
 {
   "name": "ethjs-util",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A simple set of Ethereum JS utilties.",
   "main": "lib/index.js",
-  "browser": "dist/ethjs-util.js",
   "files": [
     "dist",
     "internals",
@@ -46,6 +45,13 @@
   ],
   "authors": [
     "Nick Dodson <nick.dodson@consensys.net>"
+  ],
+  "contributors": [
+    {
+      "name": "Richard Moore",
+      "email": "me@ricmoo.com",
+      "url": "https://ethers.io"
+    }
   ],
   "engines": {
     "npm": ">=3",

@@ -23,12 +23,17 @@ const value = util.intToBuffer(38272);
 ```
 arrayContainsArray   <Function (Array, Array) : (Boolean)>
 getBinarySize        <Function (String) : (Number)>
-toBuffer             <Function (String) : (Buffer)>
 intToBuffer          <Function (Number) : (Buffer)>
 isHexPrefixed        <Function (String) : (Boolean)>
 stripHexPrefix       <Function (String) : (String)>
 padToEven            <Function (String) : (String)>
 intToHex             <Function (Number) : (String)>
+fromAscii,           <Function (String) : (String)>
+fromUtf8,            <Function (String) : (String)>
+toAscii,             <Function (String) : (String)>
+toUtf8,              <Function (String) : (String)>
+getKeys,             <Function (Array, String) : (Array)>
+isHexString,         <Function (String) : (Boolean)>
 ```
 
 ## Why BN.js?
@@ -59,6 +64,7 @@ https://polyfill.io/
 
 ## Latest Webpack Figures
 
+```
 Hash: 28b387e39e1016183a78                                                         
 Version: webpack 2.1.0-beta.15
 Time: 734ms
@@ -67,15 +73,13 @@ Time: 734ms
 ethjs-util.js.map  79.3 kB       0  [emitted]  main
     + 8 hidden modules
 
-> ethjs-util@0.1.1 build:umd:min /home/nick/github/ethjs-util
-> cross-env BABEL_ENV=commonjs NODE_ENV=production webpack --config ./internals/webpack/webpack.config.js ./lib/index.js --progress
-
 Hash: 4d26e1d501227158f8ab                                                         
 Version: webpack 2.1.0-beta.15
 Time: 1523ms
             Asset     Size  Chunks             Chunk Names
-ethjs-util.min.js  25.6 kB       0  [emitted]  main
+ethjs-util.min.js  25.4 kB       0  [emitted]  main
     + 8 hidden modules
+```
 
 ## Other Awesome Modules, Tools and Frameworks
 

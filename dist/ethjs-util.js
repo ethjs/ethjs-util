@@ -1921,7 +1921,7 @@ function padToEven(value) {
   var a = value; // eslint-disable-line
 
   if (typeof a !== 'string') {
-    throw new Error('value must be string, is currently ' + typeof a + ', while padToEven.');
+    throw new Error('[ethjs-util] while padding to even, value must be string, is currently ' + typeof a + ', while padToEven.');
   }
 
   if (a.length % 2) {
@@ -1938,11 +1938,8 @@ function padToEven(value) {
  */
 function intToHex(i) {
   var hex = i.toString(16); // eslint-disable-line
-  if (hex.length % 2) {
-    hex = '0' + hex;
-  }
 
-  return '0x' + hex;
+  return '0x' + padToEven(hex);
 }
 
 /**
@@ -1963,44 +1960,10 @@ function intToBuffer(i) {
  */
 function getBinarySize(str) {
   if (typeof str !== 'string') {
-    throw new Error('method getBinarySize requires input \'str\' to be type String, got \'' + typeof str + '\'.');
+    throw new Error('[ethjs-util] while getting binary size, method getBinarySize requires input \'str\' to be type String, got \'' + typeof str + '\'.');
   }
 
   return Buffer.byteLength(str, 'utf8');
-}
-
-/**
- * Attempts to turn a value into a `Buffer`. As input it supports `Buffer`, `String`, `Number`, null/undefined, `BN` and other objects with a `toArray()` method.
- * @param {*} v the value
- */
-function toBuffer(value) {
-  var v = value; // eslint-disable-line
-
-  if (!Buffer.isBuffer(v)) {
-    if (Array.isArray(v)) {
-      v = Buffer.from(v);
-    } else if (typeof v === 'string') {
-      if (isHexPrefixed(v)) {
-        v = Buffer.from(padToEven(stripHexPrefix(v)), 'hex');
-      } else {
-        v = Buffer.from(v);
-      }
-    } else if (typeof v === 'number') {
-      v = intToBuffer(v);
-    } else if (v === null || v === undefined) {
-      v = Buffer.allocUnsafe(0);
-    } else if (v.toArray) {
-      // converts a BN to a Buffer
-      v = Buffer.from(v.toArray());
-    } else if (v.dividedToIntegerBy) {
-      // converts a BigNumber to a Buffer
-      v = Buffer.from(padToEven(v.toString(16)), 'hex');
-    } else {
-      throw new Error('invalid type');
-    }
-  }
-
-  return v;
 }
 
 /**
@@ -2014,10 +1977,10 @@ function toBuffer(value) {
  */
 function arrayContainsArray(superset, subset, some) {
   if (Array.isArray(superset) !== true) {
-    throw new Error('method arrayContainsArray requires input \'superset\' to be an array got type \'' + typeof superset + '\'');
+    throw new Error('[ethjs-util] method arrayContainsArray requires input \'superset\' to be an array got type \'' + typeof superset + '\'');
   }
   if (Array.isArray(subset) !== true) {
-    throw new Error('method arrayContainsArray requires input \'subset\' to be an array got type \'' + typeof subset + '\'');
+    throw new Error('[ethjs-util] method arrayContainsArray requires input \'subset\' to be an array got type \'' + typeof subset + '\'');
   }
 
   return subset[Boolean(some) && 'some' || 'every'](function (value) {
@@ -2107,10 +2070,10 @@ function fromAscii(stringValue) {
  */
 function getKeys(params, key, allowEmpty) {
   if (!Array.isArray(params)) {
-    throw new Error('method getKeys expecting type Array as \'params\' input, got \'' + typeof params + '\'');
+    throw new Error('[ethjs-util] method getKeys expecting type Array as \'params\' input, got \'' + typeof params + '\'');
   }
   if (typeof key !== 'string') {
-    throw new Error('method getKeys expecting type String for input \'key\' got \'' + typeof key + '\'.');
+    throw new Error('[ethjs-util] method getKeys expecting type String for input \'key\' got \'' + typeof key + '\'.');
   }
 
   var result = []; // eslint-disable-line
@@ -2129,19 +2092,28 @@ function getKeys(params, key, allowEmpty) {
   return result;
 }
 
+/**
+ * Is the string a hex string.
+ *
+ * @method check if string is hex string of specific length
+ * @param {String} value
+ * @param {Number} length
+ * @returns {Boolean} output the string is a hex string
+ */
 function isHexString(value, length) {
   if (typeof value !== 'string' || !value.match(/^0x[0-9A-Fa-f]*$/)) {
     return false;
   }
+
   if (length && value.length !== 2 + 2 * length) {
     return false;
   }
+
   return true;
 }
 
 module.exports = {
   arrayContainsArray: arrayContainsArray,
-  toBuffer: toBuffer,
   intToBuffer: intToBuffer,
   getBinarySize: getBinarySize,
   isHexPrefixed: isHexPrefixed,

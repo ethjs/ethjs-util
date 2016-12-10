@@ -1,3 +1,14 @@
+# 0.1.3 -- less dependencies
+
+1. Less dependencies
+2. Smaller build size
+3. More docs
+
+# 0.1.2 -- config fixes
+
+1. webpack config updates
+2. build config updates
+
 # 0.1.1 -- less dependencies
 
 1. Less dependencies, same functionality

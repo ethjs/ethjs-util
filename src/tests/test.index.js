@@ -1,7 +1,6 @@
 const util = require('../index.js');
 const assert = require('chai').assert;
 const BN = require('bn.js');
-const BigNumber = require('bignumber.js');
 
 describe('check all exports', () => {
   it('should have all exports available', () => {
@@ -23,6 +22,18 @@ describe('check all exports', () => {
     Object.keys(util).forEach((utilKey) => {
       assert.equal(expected.includes(utilKey), true, utilKey);
     });
+  });
+
+  it('should convert intToHex', () => {
+    assert.equal(util.intToHex(new BN(0)), '0x00');
+  });
+
+  it('should throw when invalid abi', () => {
+    assert.throws(() => util.getKeys([], 3289), Error);
+  });
+
+  it('should detect invalid length hex string', () => {
+    assert.equal(util.isHexString('0x0', 2), false);
   });
 
   it('should stripHexPrefix strip prefix of valid strings', () => {
@@ -360,34 +371,6 @@ describe('check all exports', () => {
       const i = 6003400;
       const buf = util.intToBuffer(i);
       assert.equal(buf.toString('hex'), '5b9ac8');
-    });
-  });
-
-
-  describe('toBuffer', () => {
-    it('should work', () => {
-      // Buffer
-      assert.deepEqual(util.toBuffer(Buffer.allocUnsafe(0)), Buffer.allocUnsafe(0));
-      // Array
-      assert.deepEqual(util.toBuffer([]), Buffer.allocUnsafe(0));
-      // String
-      assert.deepEqual(util.toBuffer('11'), Buffer.from([49, 49]));
-      assert.deepEqual(util.toBuffer('0x11'), Buffer.from([17]));
-      assert.deepEqual(util.toBuffer('1234').toString('hex'), '31323334');
-      assert.deepEqual(util.toBuffer('0x1234').toString('hex'), '1234');
-      assert.deepEqual(util.toBuffer(new BN(34)).toString('hex'), '22');
-      assert.deepEqual(util.toBuffer(new BigNumber(34)).toString('hex'), '22');
-      // Number
-      assert.deepEqual(util.toBuffer(1), Buffer.from([1]));
-      // null
-      assert.deepEqual(util.toBuffer(null), Buffer.allocUnsafe(0));
-      // undefined
-      assert.deepEqual(util.toBuffer(), Buffer.allocUnsafe(0));
-    });
-    it('should fail', () => {
-      assert.throws(() => {
-        util.toBuffer({ test: 1 });
-      });
     });
   });
 });
