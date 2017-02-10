@@ -39,7 +39,7 @@ function intToHex(i) {
 function intToBuffer(i) {
   const hex = intToHex(i);
 
-  return Buffer.from(hex.slice(2), 'hex');
+  return new Buffer(hex.slice(2), 'hex');
 }
 
 /**
