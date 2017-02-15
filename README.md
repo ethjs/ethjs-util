@@ -70,6 +70,7 @@ padToEven            <Function (String) : (String)>
 isHexPrefixed        <Function (String) : (Boolean)>
 isHexString          <Function (Value, Length) : (Boolean)>
 stripHexPrefix       <Function (String) : (String)>
+addHexPrefix         <Function (String) : (String)>
 
 getKeys              <Function (Params, Key, Empty) : (Array)>
 arrayContainsArray   <Function (Array, Array) : (Boolean)>
