@@ -17,6 +17,7 @@ describe('check all exports', () => {
     'toAscii',
     'getKeys',
     'isHexString',
+    'addHexPrefix',
     'toUtf8'];
 
     Object.keys(util).forEach((utilKey) => {
@@ -371,6 +372,16 @@ describe('check all exports', () => {
       const i = 6003400;
       const buf = util.intToBuffer(i);
       assert.equal(buf.toString('hex'), '5b9ac8');
+    });
+  });
+
+  describe('hex prefix', () => {
+    const string = 'd658a4b8247c14868f3c512fa5cbb6e458e4a989';
+    it('should add', () => {
+      assert.equal(util.addHexPrefix(string), `0x${string}`);
+    });
+    it('`should return on non-string input', () => {
+      assert.equal(util.addHexPrefix(1), 1);
     });
   });
 });

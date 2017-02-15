@@ -1913,6 +1913,19 @@ var isHexPrefixed = __webpack_require__(1);
 var stripHexPrefix = __webpack_require__(2);
 
 /**
+ * Adds "0x" to a given `String` if it does not already start with "0x"
+ * @param {String} str
+ * @return {String}
+ */
+function addHexPrefix(str) {
+  if (typeof str !== 'string') {
+    return str;
+  }
+
+  return isHexPrefixed(str) ? str : '0x' + str;
+}
+
+/**
  * Pads a `String` to have an even length
  * @param {String} value
  * @return {String} output
@@ -1950,7 +1963,7 @@ function intToHex(i) {
 function intToBuffer(i) {
   var hex = intToHex(i);
 
-  return Buffer.from(hex.slice(2), 'hex');
+  return new Buffer(hex.slice(2), 'hex');
 }
 
 /**
@@ -2125,7 +2138,8 @@ module.exports = {
   toAscii: toAscii,
   toUtf8: toUtf8,
   getKeys: getKeys,
-  isHexString: isHexString
+  isHexString: isHexString,
+  addHexPrefix: addHexPrefix
 };
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
