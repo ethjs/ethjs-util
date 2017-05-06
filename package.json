@@ -2,7 +2,7 @@
   "name": "ethjs-util",
   "version": "0.1.4",
   "description": "A simple set of Ethereum JS utilties.",
-  "main": "lib/index.js",
+  "main": "dist/ethjs-util.min.js",
   "files": [
     "dist",
     "internals",
