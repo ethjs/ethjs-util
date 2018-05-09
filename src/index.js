@@ -2,19 +2,6 @@ const isHexPrefixed = require('is-hex-prefixed');
 const stripHexPrefix = require('strip-hex-prefix');
 
 /**
- * Adds "0x" to a given `String` if it does not already start with "0x"
- * @param {String} str
- * @return {String}
- */
-function addHexPrefix(str) {
-  if (typeof str !== 'string') {
-    return str;
-  }
-
-  return isHexPrefixed(str) ? str : `0x${str}`;
-}
-
-/**
  * Pads a `String` to have an even length
  * @param {String} value
  * @return {String} output
@@ -213,5 +200,4 @@ module.exports = {
   toUtf8,
   getKeys,
   isHexString,
-  addHexPrefix,
 };
