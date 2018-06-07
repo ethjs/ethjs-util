@@ -25,7 +25,7 @@ describe('check all exports', () => {
   });
 
   it('should convert intToHex', () => {
-    assert.equal(util.intToHex(new BN(0)), '0x00');
+    assert.equal(util.intToHex(new BN(0)), '0x0');
   });
 
   it('should throw when invalid abi', () => {
