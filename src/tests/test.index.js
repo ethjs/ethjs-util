@@ -372,5 +372,11 @@ describe('check all exports', () => {
       const buf = util.intToBuffer(i);
       assert.equal(buf.toString('hex'), '5b9ac8');
     });
+
+    it('should convert a int to a buffer for odd length hex values', () => {
+      const i = 1;
+      const buf = util.intToBuffer(i);
+      assert.equal(buf.toString('hex'), '01');
+    });
   });
 });

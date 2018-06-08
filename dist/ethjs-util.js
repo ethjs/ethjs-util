@@ -1939,7 +1939,7 @@ function padToEven(value) {
 function intToHex(i) {
   var hex = i.toString(16); // eslint-disable-line
 
-  return '0x' + padToEven(hex);
+  return '0x' + hex;
 }
 
 /**
@@ -1950,7 +1950,7 @@ function intToHex(i) {
 function intToBuffer(i) {
   var hex = intToHex(i);
 
-  return new Buffer(hex.slice(2), 'hex');
+  return new Buffer(padToEven(hex.slice(2)), 'hex');
 }
 
 /**
