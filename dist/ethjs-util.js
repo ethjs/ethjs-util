@@ -1939,7 +1939,7 @@ function padToEven(value) {
 function intToHex(i) {
   var hex = i.toString(16); // eslint-disable-line
 
-  return '0x' + padToEven(hex);
+  return '0x' + hex;
 }
 
 /**
@@ -1950,7 +1950,7 @@ function intToHex(i) {
 function intToBuffer(i) {
   var hex = intToHex(i);
 
-  return new Buffer(hex.slice(2), 'hex');
+  return new Buffer(padToEven(hex.slice(2)), 'hex');
 }
 
 /**
@@ -2010,14 +2010,8 @@ function toUtf8(hex) {
  */
 function toAscii(hex) {
   var str = ''; // eslint-disable-line
-  var i = 0,
-      l = hex.length; // eslint-disable-line
-
-  if (hex.substring(0, 2) === '0x') {
-    i = 2;
-  }
-
-  for (; i < l; i += 2) {
+  var i = hex.substring(0, 2) === '0x' ? 2 : 0;
+  for (; i < hex.length; i += 2) {
     var code = parseInt(hex.substr(i, 2), 16);
     str += String.fromCharCode(code);
   }

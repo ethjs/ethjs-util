@@ -39,7 +39,7 @@ function intToHex(i) {
 function intToBuffer(i) {
   const hex = intToHex(i);
 
-  return new Buffer(hex.slice(2), 'hex');
+  return new Buffer(padToEven(hex.slice(2)), 'hex');
 }
 
 /**
@@ -65,8 +65,12 @@ function getBinarySize(str) {
  * @returns {boolean}
  */
 function arrayContainsArray(superset, subset, some) {
-  if (Array.isArray(superset) !== true) { throw new Error(`[ethjs-util] method arrayContainsArray requires input 'superset' to be an array got type '${typeof superset}'`); }
-  if (Array.isArray(subset) !== true) { throw new Error(`[ethjs-util] method arrayContainsArray requires input 'subset' to be an array got type '${typeof subset}'`); }
+  if (Array.isArray(superset) !== true) {
+    throw new Error(`[ethjs-util] method arrayContainsArray requires input 'superset' to be an array got type '${typeof superset}'`);
+  }
+  if (Array.isArray(subset) !== true) {
+    throw new Error(`[ethjs-util] method arrayContainsArray requires input 'subset' to be an array got type '${typeof subset}'`);
+  }
 
   return subset[Boolean(some) && 'some' || 'every']((value) => (superset.indexOf(value) >= 0));
 }
@@ -92,14 +96,9 @@ function toUtf8(hex) {
  * @returns {String} ascii string representation of hex value
  */
 function toAscii(hex) {
-  var str = ''; // eslint-disable-line
-  var i = 0, l = hex.length; // eslint-disable-line
-
-  if (hex.substring(0, 2) === '0x') {
-    i = 2;
-  }
-
-  for (; i < l; i += 2) {
+  let str = ''; // eslint-disable-line
+  let i = hex.substring(0, 2) === '0x' ? 2 : 0;
+  for (; i < hex.length; i += 2) {
     const code = parseInt(hex.substr(i, 2), 16);
     str += String.fromCharCode(code);
   }
@@ -131,7 +130,7 @@ function fromUtf8(stringValue) {
  */
 function fromAscii(stringValue) {
   var hex = ''; // eslint-disable-line
-  for(var i = 0; i < stringValue.length; i++) { // eslint-disable-line
+  for (var i = 0; i < stringValue.length; i++) { // eslint-disable-line
     const code = stringValue.charCodeAt(i);
     const n = code.toString(16);
     hex += n.length < 2 ? `0${n}` : n;
@@ -150,8 +149,12 @@ function fromAscii(stringValue) {
  * @returns {Array} output just a simple array of output keys
  */
 function getKeys(params, key, allowEmpty) {
-  if (!Array.isArray(params)) { throw new Error(`[ethjs-util] method getKeys expecting type Array as 'params' input, got '${typeof params}'`); }
-  if (typeof key !== 'string') { throw new Error(`[ethjs-util] method getKeys expecting type String for input 'key' got '${typeof key}'.`); }
+  if (!Array.isArray(params)) {
+    throw new Error(`[ethjs-util] method getKeys expecting type Array as 'params' input, got '${typeof params}'`);
+  }
+  if (typeof key !== 'string') {
+    throw new Error(`[ethjs-util] method getKeys expecting type String for input 'key' got '${typeof key}'.`);
+  }
 
   var result = []; // eslint-disable-line
 
@@ -159,7 +162,7 @@ function getKeys(params, key, allowEmpty) {
     var value = params[i][key]; // eslint-disable-line
     if (allowEmpty && !value) {
       value = '';
-    } else if (typeof(value) !== 'string') {
+    } else if (typeof (value) !== 'string') {
       throw new Error('invalid abi');
     }
     result.push(value);
@@ -177,11 +180,13 @@ function getKeys(params, key, allowEmpty) {
  * @returns {Boolean} output the string is a hex string
  */
 function isHexString(value, length) {
-  if (typeof(value) !== 'string' || !value.match(/^0x[0-9A-Fa-f]*$/)) {
+  if (typeof (value) !== 'string' || !value.match(/^0x[0-9A-Fa-f]*$/)) {
     return false;
   }
 
-  if (length && value.length !== 2 + 2 * length) { return false; }
+  if (length && value.length !== 2 + 2 * length) {
+    return false;
+  }
 
   return true;
 }
