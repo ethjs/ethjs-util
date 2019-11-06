@@ -142,7 +142,7 @@
     "check-es3-syntax-cli": "0.1.3",
     "coveralls": "2.11.9",
     "cross-env": "1.0.7",
-    "eslint": "2.10.1",
+    "eslint": "4.18.2",
     "eslint-config-airbnb": "9.0.1",
     "eslint-import-resolver-webpack": "0.2.4",
     "eslint-plugin-import": "1.8.0",
